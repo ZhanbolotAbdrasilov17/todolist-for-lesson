@@ -1,8 +1,23 @@
 import styled from "styled-components"
 
+
 const TodoContainer = styled.li`
   list-style: none;
   background-color: #ccc;
+
+  &:hover {
+    color: blue;
+  }
+
+  & > input {
+    margin-right: 20px;
+  }
+`
+const TodoText = styled.span`
+  text-decoration: ${(props) => {
+    if (props.isDone) return 'line-through'
+    return 'none'
+  }};
 `
 
 export const TodoItem = ({ id, text, isDone, onToggleTodo }) => {
@@ -17,7 +32,7 @@ export const TodoItem = ({ id, text, isDone, onToggleTodo }) => {
         checked={isDone}
         onChange={handleToggleTodo}
       />
-      <span style={{ textDecoration: isDone ? 'line-through' : 'none' }}>{text}</span>
+      <TodoText isDone={isDone}>{text}</TodoText>
     </TodoContainer>
   )
 }

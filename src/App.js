@@ -1,49 +1,45 @@
-import { useState } from 'react'
+import styled from 'styled-components'
 import { TodoList } from './components/todo-list'
 import { startTodolist } from './data'
+import { useTodolist } from './hooks/useTodolist'
+
+const StyledTodolist = styled(TodoList)`
+  background-color: pink;
+  margin-top: 50px;
+`
 
 function App() {
-  const [todos, setTodos] = useState(startTodolist)
-
+  const { todos, toggleTodo } = useTodolist(startTodolist)
   const getOverdueTodos = () => {
     const today = new Date()
-    return todos.filter((todo) => !todo.isDone && new Date(todo.deadline) < today)
+    return todos.filter(
+      (todo) => !todo.isDone && new Date(todo.deadline) < today
+    )
   }
-
   const getActualTodos = () => {
     const today = new Date()
-    return todos.filter((todo) => !todo.isDone && new Date(todo.deadline) >= today)
+    return todos.filter(
+      (todo) => !todo.isDone && new Date(todo.deadline) >= today
+    )
   }
-
   const getCompletedTodos = () => {
-    return todos.filter(todo => todo.isDone)
+    return todos.filter((todo) => todo.isDone)
   }
-
-  const toggleTodo = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, isDone: !todo.isDone }
-      } else {
-        return todo
-      }
-    })
-    setTodos(updatedTodos)
-  }
-
+  
   return (
     <div>
       <h1>Todo List</h1>
-      <TodoList
+      <StyledTodolist
         title="Overdue"
         items={getOverdueTodos()}
         onToggleTodo={toggleTodo}
       />
-      <TodoList
+      <StyledTodolist
         title="Actual"
         items={getActualTodos()}
         onToggleTodo={toggleTodo}
       />
-      <TodoList
+      <StyledTodolist
         title="Completed"
         items={getCompletedTodos()}
         onToggleTodo={toggleTodo}
@@ -51,6 +47,5 @@ function App() {
     </div>
   )
 }
-
 
 export default App
