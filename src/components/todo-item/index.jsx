@@ -25,7 +25,7 @@ export const TodoItem = ({ id, text, isDone }) => {
   const dispatch = useDispatch()
 
   const handleToggleTodo = () => {
-    dispatch(todoActions.toggleTodo(id))
+    dispatch(todoActions.toggleTodo({ id }))
   }
 
   return (
