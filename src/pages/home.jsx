@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { TodoList } from './components/todo-list'
+import { TodoList } from '../components/todo-list'
 import { useSelector } from 'react-redux'
 
 const StyledTodolist = styled(TodoList)`
@@ -7,7 +7,7 @@ const StyledTodolist = styled(TodoList)`
   margin-top: 50px;
 `
 
-function App() {
+export const HomePage = () => {
   const todos = useSelector(state => state.todo.items)
 
   const getOverdueTodos = () => {
@@ -44,5 +44,3 @@ function App() {
     </div>
   )
 }
-
-export default App
